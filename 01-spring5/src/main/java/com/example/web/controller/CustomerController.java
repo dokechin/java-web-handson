@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.persistence.entity.Customer;
@@ -58,6 +59,19 @@ public class CustomerController {
         model.addAttribute(CustomerForm.createEmptyForm());
         // src/main/resources/templates/insertMain.htmlに遷移する
         return "insertMain";
+    }
+
+    /**
+     * 社員更新画面に遷移するコントローラーメソッド。
+     */
+    // updateMain()
+    @GetMapping("/updateMain/{id}")
+    public String updateMain(@PathVariable Long id, Model model) {
+        // idからエンティティを引く
+//        Customer customer = customerService.findById(id);
+//        model.addAttribute("updateCustomer", customer);
+        // src/main/resources/templates/insertMain.htmlに遷移する
+        return "updateMain";
     }
 
     /**
