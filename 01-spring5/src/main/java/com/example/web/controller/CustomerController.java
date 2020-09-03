@@ -26,11 +26,20 @@ public class CustomerController {
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
+
+    /**
+     * メニュー画面に遷移するコントローラー。
+     */
+    @GetMapping("/")
+    public String menu(Model model) {
+        // src/main/resources/templates/menu.htmlに遷移する
+        return "menu";
+    }
     /**
      * 社員一覧画面に遷移するコントローラーメソッド。
      */
     // TODO 3-06 index()メソッドを作成する
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(Model model) {
         // 顧客を全件検索して、その結果を顧客一覧画面に渡す
         Iterable<Customer> customers = customerService.findAll();
