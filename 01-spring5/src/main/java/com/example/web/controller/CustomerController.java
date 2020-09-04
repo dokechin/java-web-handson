@@ -66,10 +66,10 @@ public class CustomerController {
      */
     // updateMain()
     @GetMapping("/updateMain/{id}")
-    public String updateMain(@PathVariable Long id, Model model) {
+    public String updateMain(@PathVariable Integer id, Model model) {
         // idからエンティティを引く
-//        Customer customer = customerService.findById(id);
-//        model.addAttribute("updateCustomer", customer);
+        Customer customer = customerService.findById(id);
+        model.addAttribute("customerForm", CustomerForm.createForm(customer));
         // src/main/resources/templates/insertMain.htmlに遷移する
         return "updateMain";
     }
@@ -93,6 +93,27 @@ public class CustomerController {
         // 顧客をDBに追加する
         customerService.save(customer);
         // 「/」にリダイレクトする
-        return "redirect:/";
+        return "redirect:/index";
     }
+    /**
+     * 社員の更新を行うコントローラーメソッド。
+     */
+    @PostMapping("/updateComplete")
+    public String updateComplete(
+            // Bean Validationを実行するアノテーションを付加する
+            @Validated
+               CustomerForm customerForm,
+            BindingResult bindingResult) {
+        // 検証エラーがあればinsertMain.htmlに遷移する
+        if (bindingResult.hasErrors()) {
+            return "updateMain";
+        }
+        // フォームをエンティティに変換
+        Customer customer = customerForm.convertToEntity();
+        // 顧客をDBに追加する
+        customerService.save(customer);
+        // 「/」にリダイレクトする
+        return "redirect:/index";
+    }
+
 }

@@ -27,6 +27,13 @@ public class CustomerServiceImpl implements CustomerService {
     	return customerRepository.findAll();
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
+    @Override
+    public Customer findById(Integer id) {
+        // TODO 2-05 CustomerRepositoryのfindAll()を呼び出す
+    	return customerRepository.findById(id).get();
+    }
+
     // TODO 2-06 トランザクション管理アノテーションを付加する（伝播属性＝REQUIRED, 読み取り専用＝false）
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     @Override

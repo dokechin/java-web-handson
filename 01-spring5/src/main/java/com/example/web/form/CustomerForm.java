@@ -13,6 +13,7 @@ import com.example.persistence.entity.Customer;
 
 public class CustomerForm {
 
+    private Integer id;
     // TODO 3-01 検証アノテーションを付加する（空白不可、長さ1から32まで）
     @NotBlank
     @Length(min = 1, max = 32)
@@ -33,10 +34,12 @@ public class CustomerForm {
     @DateTimeFormat(pattern = "uuuu-MM-dd")
     private LocalDate birthday;
 
-    public CustomerForm(String firstName,
+    public CustomerForm(Integer id,
+    					String firstName,
                         String lastName,
                         String email,
                         LocalDate birthday) {
+    	this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -47,16 +50,25 @@ public class CustomerForm {
      * フィールドがすべて空（null）のCustomerFormインスタンスを生成するメソッド
      */
     public static CustomerForm createEmptyForm() {
-        return new CustomerForm(null, null, null, null);
+        return new CustomerForm(null, null, null, null, null);
+    }
+
+    public static CustomerForm createForm(Customer src) {
+    	return new CustomerForm(src.getId(),
+    			src.getFirstName(),
+    			src.getLastName(),src.getEmail(), src.getBirthday());
     }
 
     /**
      * エンティティのCustomerに変換するメソッド
      */
     public Customer convertToEntity() {
-        return new Customer(firstName, lastName, email, birthday);
+        return new Customer(id, firstName, lastName, email, birthday);
     }
 
+    public Integer getId() {
+    	return id;
+    }
     public String getFirstName() {
         return firstName;
     }

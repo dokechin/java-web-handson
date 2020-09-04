@@ -1,11 +1,13 @@
 package com.example.web.controller;
 
-import com.example.persistence.config.DataSourceConfig;
-import com.example.persistence.config.JdbcConfig;
-import com.example.persistence.entity.Customer;
-import com.example.service.config.ServiceConfig;
-import com.example.web.config.MvcConfig;
-import com.example.web.form.CustomerForm;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +22,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.sql.DataSource;
-import java.lang.reflect.Method;
-import java.time.LocalDate;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.example.persistence.config.DataSourceConfig;
+import com.example.persistence.config.JdbcConfig;
+import com.example.persistence.entity.Customer;
+import com.example.service.config.ServiceConfig;
+import com.example.web.config.MvcConfig;
+import com.example.web.form.CustomerForm;
 
 // TODO 3-23 このテストを実行して、CustomerControllerの実装が正しいかチェックする（グリーンになればOK）
 @SpringJUnitWebConfig(classes = {DataSourceConfig.class, JdbcConfig.class,
@@ -114,7 +111,7 @@ public class CustomerControllerTest {
     @DisplayName("顧客の追加ができてindex画面にリダイレクトする")
     @Transactional // テスト終了後にロールバックする
     public void insertCompleteTest2() {
-        CustomerForm customerForm = new CustomerForm("絵梨花", "生田",
+        CustomerForm customerForm = new CustomerForm(1,"絵梨花", "生田",
                 "eikuta@nogi.com", LocalDate.of(1997, 1, 22));
         BeanPropertyBindingResult bindingResult =
                 new BeanPropertyBindingResult(customerForm, "customerForm");

@@ -11,6 +11,11 @@ public interface CustomerService {
     Iterable<Customer> findAll();
 
     /**
+     * 顧客をID検索する
+     */
+    Customer findById(Integer id);
+
+    /**
      * 1件の顧客をDBに追加する
      * @param customer 追加する顧客
      */

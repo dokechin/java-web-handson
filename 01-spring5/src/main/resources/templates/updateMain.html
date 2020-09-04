@@ -14,11 +14,11 @@
 
 <h1>更新</h1>
 <a href="index.html" th:href="@{/index}">顧客一覧へ</a>
-<form method="post" action="index.html" th:action="@{insertComplete}" th:object="${customerForm}">
+<form method="post" action="index.html" th:action="@{/updateComplete}" th:object="${customerForm}">
     <table border="1">
         <tr>
             <th>ID</th>
-            <td>(自動採番されます)</td>
+            <td th:text="*{id}"></td>
         </tr>
         <tr>
             <th>姓</th>
@@ -49,7 +49,8 @@
             </td>
         </tr>
     </table>
-    <input type="submit" value="登録">
+    <input type="hidden" th:field="*{id}">
+    <input type="submit" value="更新">
 </form>
 
 </body>
